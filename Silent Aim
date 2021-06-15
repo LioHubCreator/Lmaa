@@ -1,0 +1,7 @@
+getgenv().SelectedPart = "Head"
+getgenv().VisibiltyCheck = false
+getgenv().TargetESP = false
+getgenv().FOV = 800
+getgenv().CircleVisibility = false
+getgenv().Distance = 5000
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yesok3877/Celestial-Silent-Aim/master/Auto-Input", true))()
