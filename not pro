@@ -1,0 +1,209 @@
+-- script credit, user oddzoff 
+-- https://forum.robloxscripts.com/showthread.php?tid=4010
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/XR97onYT/Notification-Library/main/lib.lua"))()
+ 
+local IsItRandomizer = false
+ 
+local vu = game:GetService("VirtualUser")
+ 
+function getUserRole(user, group)
+    return user:GetRoleInGroup(group)
+end
+ 
+game.Players.PlayerAdded:Connect(function(player)
+    if getUserRole(player, 2613928) == "Game Moderators" or getUserRole(player, 2613928) == "Interns" or getUserRole(player, 2613928) == "Contractors" or getUserRole(player, 2613928) == "Contributors" or getUserRole(player, 2613928) == "Beloved" or getUserRole(player, 2613928) == "Main Developers" or getUserRole(player, 2613928) == "Founder/Main Developer" then
+        hopServer()
+    end
+end)
+ 
+wait(3)
+ 
+local Hacking = false
+ 
+print("Set hack value")
+ 
+function hopServer()
+    local x = {}
+    for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+        if type(v) == "table" and v.playing <= 15 and v.id ~= game.JobId then
+            x[#x + 1] = v.id
+        end
+    end
+    if #x > 0 then
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, x[math.random(1, #x)])
+    end
+end
+ 
+print("Set hop function")
+ 
+function doTheAutofarm()
+    spawn(function()
+        for i = 20,0,-1 do
+            if not Hacking then print("Fail protection waiting: "..tostring(i)) end
+            if i <= 1 then
+                if not Hacking then hopServer() end
+            end
+            wait(1)
+        end
+    end)
+ 
+    print("Doing")
+ 
+    repeat wait() until game:GetService("Players").LocalPlayer and game:GetService("ReplicatedStorage")
+    game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State, Id, sName)
+        if State == Enum.TeleportState.Failed then
+            hopServer()
+        end
+    end)
+ 
+    print("Set up fail protection")
+ 
+    if not game:IsLoaded() then
+        game.Loaded:Wait()
+    end
+ 
+    coroutine.wrap(function()
+        repeat wait() until not game:GetService("ReplicatedStorage").wkspc.Status.RoundOver.Value == true
+        wait(1)
+        game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer("TBC")
+        game:GetService("ReplicatedStorage").Events.LoadCharacter:FireServer()
+        game.Players.LocalPlayer.PlayerGui.Menew.Enabled = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Enabled = true
+            game.Players.LocalPlayer.PlayerGui.GUI.TeamSelection.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.BottomFrame.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Interface.Visible = true
+        wait(1)
+        if game.Players.LocalPlayer.Status.Team.Value == "Spectator" then
+            game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer("TBC")
+            game:GetService("ReplicatedStorage").Events.LoadCharacter:FireServer()
+            game.Players.LocalPlayer.PlayerGui.Menew.Enabled = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Enabled = true
+            game.Players.LocalPlayer.PlayerGui.GUI.TeamSelection.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.BottomFrame.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Interface.Visible = true
+        end
+        wait(1)
+        if game.Players.LocalPlayer.Status.Team.Value == "Spectator" then
+            game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer("TRC")
+            game:GetService("ReplicatedStorage").Events.LoadCharacter:FireServer()
+            game.Players.LocalPlayer.PlayerGui.Menew.Enabled = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Enabled = true
+            game.Players.LocalPlayer.PlayerGui.GUI.TeamSelection.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.BottomFrame.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Interface.Visible = true
+        end
+        wait(1)
+        if game.Players.LocalPlayer.Status.Team.Value == "Spectator" then
+            game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer("TYC")
+            game:GetService("ReplicatedStorage").Events.LoadCharacter:FireServer()
+            game.Players.LocalPlayer.PlayerGui.Menew.Enabled = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Enabled = true
+            game.Players.LocalPlayer.PlayerGui.GUI.TeamSelection.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.BottomFrame.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Interface.Visible = true
+        end
+        wait(1)
+        if game.Players.LocalPlayer.Status.Team.Value == "Spectator" then
+            game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer("TGC")
+            game:GetService("ReplicatedStorage").Events.LoadCharacter:FireServer()
+            game.Players.LocalPlayer.PlayerGui.Menew.Enabled = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Enabled = true
+            game.Players.LocalPlayer.PlayerGui.GUI.TeamSelection.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.BottomFrame.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Interface.Visible = true
+        end
+        wait(1)
+        if game.Players.LocalPlayer.Status.Team.Value == "Spectator" then
+            game:GetService("ReplicatedStorage").Events.JoinTeam:FireServer("Random")
+            game:GetService("ReplicatedStorage").Events.LoadCharacter:FireServer()
+            game.Players.LocalPlayer.PlayerGui.Menew.Enabled = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Enabled = true
+            game.Players.LocalPlayer.PlayerGui.GUI.TeamSelection.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.BottomFrame.Visible = false
+            game.Players.LocalPlayer.PlayerGui.GUI.Interface.Visible = true
+        end
+        wait(1)
+        if game.Players.LocalPlayer.Status.Team.Value == "Spectator" then
+        hopServer()
+        end
+    end)()
+ 
+ 
+    game.ReplicatedStorage.Events.LoadCharacter:FireServer()
+    local Burn = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Burn")
+ 
+    local Damage = 1000/36
+    local WepName = "Battle Axe"
+ 
+    print("Set values")
+ 
+    repeat wait() until not game:GetService("ReplicatedStorage").wkspc.Status.RoundOver.Value == true
+ 
+    print("Start the autofarm")
+    spawn(function()
+        repeat
+            pcall(function()
+                for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+                    if v.Character and v.NRPBS.Health.Value > 0 and v.Character:FindFirstChild("Head") and v ~= game:GetService("Players").LocalPlayer then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.Head.CFrame + Vector3.new(0, 2, 2)
+                        if not Hacking then Hacking = true end
+                        wait(.1)
+                        local arguments = {
+                            [1] = v.Character:FindFirstChild("Head"),
+                            [2] = game:GetService("ReplicatedStorage"):FindFirstChild("Weapons"):FindFirstChild(WepName),
+                            [3] = Damage,
+                            [4] = Vector3.new(v.Character:FindFirstChild("Head").Position.X, v.Character:FindFirstChild("Head").Position.Y, v.Character:FindFirstChild("Head").Position.Z)
+                        }
+                        Burn:FireServer(
+                            unpack(arguments)
+                        )
+                    end
+                end
+                wait(.8)
+            end)
+        until
+        game:GetService("ReplicatedStorage").wkspc.Status.RoundOver.Value == true
+ 
+        print("Game ended")
+        game.ReplicatedStorage.Events.PlayerChatted:FireServer("oddz 5555 ez", false, true, false)
+        wait(3)
+ 
+        print("Server hop")
+ 
+        hopServer()
+    end)
+end
+ 
+print("Set autofarm function")
+ 
+spawn(function()
+    while wait(1) do
+        vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        wait(1)
+        vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end
+end)
+ 
+doTheAutofarm()
+ 
+coroutine.wrap(function()
+    while true do
+        for i,v in pairs(game.Players.LocalPlayer.PlayerGui.GUI:GetDescendants()) do
+            if v:IsA("TextLabel") or v:IsA("TextButton") then
+                if v.Text == "Randomizer" then
+                    print("RANDUHMIZAR")
+                    if not IsItRandomizer then IsItRandomizer = true break end
+                end
+            end
+        end
+        if IsItRandomizer then break end
+        wait()
+    end
+    hopServer()
+end)()
+while true do
+    local plrs = game:GetService("Players"):GetPlayers()
+    if plrs <= 6 then
+    hopServer()
+    end
+    end
